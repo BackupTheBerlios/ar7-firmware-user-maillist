@@ -1,0 +1,108 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<HTML>
+ <HEAD>
+   <TITLE> [Ar7-firmware-user] OpenWrt on a Sinus 154 DSL Basic SE: no boot / no telnet access
+   </TITLE>
+   <LINK REL="Index" HREF="http://lists.berlios.de/pipermail/ar7-firmware-user/2006-April/index.html" >
+   <LINK REL="made" HREF="mailto:ar7-firmware-user%40lists.berlios.de?Subject=Re%3A%20%5BAr7-firmware-user%5D%20OpenWrt%20on%20a%20Sinus%20154%20DSL%20Basic%20SE%3A%20no%20boot%20/%20no%20telnet%20access&In-Reply-To=%3C1144586003.23640.32.camel%40localhost%3E">
+   <META NAME="robots" CONTENT="index,nofollow">
+   <style type="text/css">
+       pre {
+           white-space: pre-wrap;       /* css-2.1, curent FF, Opera, Safari */
+           }
+   </style>
+   <META http-equiv="Content-Type" content="text/html; charset=us-ascii">
+   
+   <LINK REL="Next"  HREF="000003.html">
+ </HEAD>
+ <BODY BGCOLOR="#ffffff">
+   <H1>[Ar7-firmware-user] OpenWrt on a Sinus 154 DSL Basic SE: no boot / no telnet access</H1>
+    <B>Michael H&#228;usler</B> 
+    <A HREF="mailto:ar7-firmware-user%40lists.berlios.de?Subject=Re%3A%20%5BAr7-firmware-user%5D%20OpenWrt%20on%20a%20Sinus%20154%20DSL%20Basic%20SE%3A%20no%20boot%20/%20no%20telnet%20access&In-Reply-To=%3C1144586003.23640.32.camel%40localhost%3E"
+       TITLE="[Ar7-firmware-user] OpenWrt on a Sinus 154 DSL Basic SE: no boot / no telnet access">michael at akatose.de
+       </A><BR>
+    <I>Sun Apr  9 14:33:23 CEST 2006</I>
+    <P><UL>
+        
+        <LI>Next message: <A HREF="000003.html">[Ar7-firmware-user] Re: archiv of the list
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+    <HR>  
+<!--beginarticle-->
+<PRE>Hi there,
+
+I am trying to run OpenWrt on a Sinus 154 DSL Basic SE with your
+patches. The recovery system of my router accepts the firmware images
+and seems to write them to the flash.
+
+When I use the files, which are directly created from OpenWrt
+(openwrt-ar7-2.4-kernel-SINUS_DSL_BASIC_SE.bin and
+openwrt-ar7-2.4-squashfs-SINUS_DSL_BASIC_SE.bin), the router seems to
+boot something: After about 8 seconds I can ping it, but I don't get
+telnet access to it (in fact no TCP port seems to be open).
+
+When I follow the instructions on
+<A HREF="http://ar7-firmware.berlios.de/doc/loader">http://ar7-firmware.berlios.de/doc/loader</A> and create images using an
+original pfs.img (linux-firmware.bin and linux-userinterface.bin), the
+router only reboots into the recovery system.
+
+
+I seem to miss some magic somewhere - so, this is what I tried so far
+(maybe we could create an install guide from this):
+
+
+1. I checkout the revision 2984 of OpenWrt. The patch (svndiff.patch)
+applies cleanly to it.
+
+2. I run &quot;make menuconfig&quot; and set &quot;Telnet access&quot; to open.
+
+3. A simple make would fail because of missing header files from
+madwifi. So, I checkout revision 1358 of madwifi (same revision OpenWrt
+would use, when you activate the madwifi package) and link the directory
+to /openwrt/staging_dir_mipsel/usr/include/madwifi
+
+4. I compile the mkfirm tool
+
+5. I run make
+
+6. I extract an original pfs.img from FW_154DSLBasicSE_V1.12.bin using
+7z (from p7zip), which can deal with the non-standard zip format.
+
+7. I run the commands from <A HREF="http://ar7-firmware.berlios.de/doc/loader">http://ar7-firmware.berlios.de/doc/loader</A> to
+create the firmware images.
+
+
+Alas, with no success so far. I hope you can help out.
+
+Best regards,
+Michael
+
+
+
+</PRE>
+
+<!--endarticle-->
+    <HR>
+    <P><UL>
+        <!--threads-->
+	
+	<LI>Next message: <A HREF="000003.html">[Ar7-firmware-user] Re: archiv of the list
+</A></li>
+         <LI> <B>Messages sorted by:</B> 
+              <a href="date.html#1">[ date ]</a>
+              <a href="thread.html#1">[ thread ]</a>
+              <a href="subject.html#1">[ subject ]</a>
+              <a href="author.html#1">[ author ]</a>
+         </LI>
+       </UL>
+
+<hr>
+<a href="https://lists.berlios.de/mailman/listinfo/ar7-firmware-user">More information about the Ar7-firmware-user
+mailing list</a><br>
+</body></html>

@@ -1,0 +1,11 @@
+From vpritiskovic at hotmail.com  Thu Nov 11 11:00:27 2010
+From: vpritiskovic at hotmail.com (Veselko Pritiskovic)
+Date: Thu, 11 Nov 2010 11:00:27 +0100
+Subject: [Ar7-firmware-user] Newer build
+Message-ID: <SNT125-W54FE032838EBC872DF08DCC4320@phx.gbl>
+
+
+Hi there!
+ 
+Need help how to make a newer OpenWrt backfire build? 		 	   		  
+

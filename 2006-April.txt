@@ -1,0 +1,115 @@
+From michael at akatose.de  Sun Apr  9 14:33:23 2006
+From: michael at akatose.de (Michael =?ISO-8859-1?Q?H=E4usler?=)
+Date: Sun, 09 Apr 2006 14:33:23 +0200
+Subject: [Ar7-firmware-user] OpenWrt on a Sinus 154 DSL Basic SE: no boot / no telnet access
+Message-ID: <1144586003.23640.32.camel@localhost>
+
+Hi there,
+
+I am trying to run OpenWrt on a Sinus 154 DSL Basic SE with your
+patches. The recovery system of my router accepts the firmware images
+and seems to write them to the flash.
+
+When I use the files, which are directly created from OpenWrt
+(openwrt-ar7-2.4-kernel-SINUS_DSL_BASIC_SE.bin and
+openwrt-ar7-2.4-squashfs-SINUS_DSL_BASIC_SE.bin), the router seems to
+boot something: After about 8 seconds I can ping it, but I don't get
+telnet access to it (in fact no TCP port seems to be open).
+
+When I follow the instructions on
+http://ar7-firmware.berlios.de/doc/loader and create images using an
+original pfs.img (linux-firmware.bin and linux-userinterface.bin), the
+router only reboots into the recovery system.
+
+
+I seem to miss some magic somewhere - so, this is what I tried so far
+(maybe we could create an install guide from this):
+
+
+1. I checkout the revision 2984 of OpenWrt. The patch (svndiff.patch)
+applies cleanly to it.
+
+2. I run "make menuconfig" and set "Telnet access" to open.
+
+3. A simple make would fail because of missing header files from
+madwifi. So, I checkout revision 1358 of madwifi (same revision OpenWrt
+would use, when you activate the madwifi package) and link the directory
+to /openwrt/staging_dir_mipsel/usr/include/madwifi
+
+4. I compile the mkfirm tool
+
+5. I run make
+
+6. I extract an original pfs.img from FW_154DSLBasicSE_V1.12.bin using
+7z (from p7zip), which can deal with the non-standard zip format.
+
+7. I run the commands from http://ar7-firmware.berlios.de/doc/loader to
+create the firmware images.
+
+
+Alas, with no success so far. I hope you can help out.
+
+Best regards,
+Michael
+
+
+
+
+From Stefan.Weil at weilnetz.de  Wed Apr 19 20:17:44 2006
+From: Stefan.Weil at weilnetz.de (Stefan Weil)
+Date: Wed, 19 Apr 2006 20:17:44 +0200
+Subject: [Ar7-firmware-user] Re: OpenWrt on a Sinus 154 DSL Basic SE: no boot / no telnet access
+In-Reply-To: <44459363.4030204@akatose.de>
+References: <44459363.4030204@akatose.de>
+Message-ID: <44467EC8.8030207@weilnetz.de>
+
+Hi Michael,
+
+did you use the serial interface to your router? It will show a
+numeric error code if loading of the firmware image fails.
+This error code tells the reason of the failure. But I think
+your firmware was working quite well:
+
+My patch for OpenWrt contains the file .config with a working
+configuration, so for a first try you don't need to change
+anything in "make menuconfig".
+
+You said you can ping the router shortly after reboot and there
+are no open ports? This is normal for a system which tries NFS boot.
+If you run a network sniffer (ethereal, ...), you should see
+ethernet frames coming from the router.
+
+The kernel is configured for NFS boot. It will try to boot from
+a NFS server on IP 192.168.2.2. The server must export a router
+filesystem /nfsroot. Take the filesystem from your build,
+maybe it works (watch with serial port, or at least with ethereal).
+If not (still no telnet server running), try to change the init
+script /nfsroot/etc/preinit.sinus154. A minimal script might
+just mount /proc and exec telnetd.
+
+madwifi is not used for Sinus 154. The patch should have removed
+any reference to madwifi, so there should be no need to compile it.
+Obviously this failed - I'll have to make a new patch :-)
+
+Good luck,
+Stefan
+
+
+
+
+From Stefan.Weil at weilnetz.de  Wed Apr 19 19:55:14 2006
+From: Stefan.Weil at weilnetz.de (Stefan Weil)
+Date: Wed, 19 Apr 2006 19:55:14 +0200
+Subject: [Ar7-firmware-user] Re: archiv of the list
+Message-ID: <44467982.9090801@weilnetz.de>
+
+Hi Sebastian,
+
+there was no archive of the list because there were no contributions
+from any user. Your entry was the first one, congratulation.
+
+Regards
+Stefan
+
+
+
